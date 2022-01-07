@@ -7,9 +7,6 @@ def fetch(url: str, page: int) -> dict:
     xml = fromstring(content)
     games = dict()
 
-    if not len(xml.findall('channel/item')):
-        return games
-
     for item in xml.iterfind('channel/item'):
         title = item.findtext('title')
         publish_date = item.findtext('pubDate')

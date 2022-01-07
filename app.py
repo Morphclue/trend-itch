@@ -17,15 +17,14 @@ def fetch(url: str, page: int) -> dict:
 
 def fetch_all_pages(url: str) -> dict:
     page = 1
-    fetching = True
     all_games = dict()
 
-    while fetching:
+    while True:
         result = fetch(url, page)
+        if not len(result):
+            break
         all_games = {**all_games, **result}
         page += 1
-        if not len(result):
-            fetching = False
 
     return all_games
 

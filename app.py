@@ -1,9 +1,11 @@
 import requests
 from xml.etree.ElementTree import fromstring
 
+session = requests.session()
+
 
 def fetch(url: str, page: int) -> dict:
-    content = requests.get(url, params={'page': page}).content
+    content = session.get(url, params={'page': page}).content
     xml = fromstring(content)
     games = dict()
 

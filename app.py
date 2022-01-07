@@ -15,5 +15,20 @@ def fetch(url: str, page: int) -> dict:
     return games
 
 
+def fetch_all_pages(url: str) -> dict:
+    page = 1
+    fetching = True
+    all_games = dict()
+
+    while fetching:
+        result = fetch(url, page)
+        all_games = {**all_games, **result}
+        page += 1
+        if not len(result):
+            fetching = False
+
+    return all_games
+
+
 if __name__ == '__main__':
-    print(fetch('https://itch.io/games/made-with-godot.xml', 10000))
+    fetch_all_pages('https://itch.io/games/made-with-flickgame.xml')

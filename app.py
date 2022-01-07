@@ -1,3 +1,5 @@
+import csv
+
 import requests
 from xml.etree.ElementTree import fromstring
 
@@ -31,5 +33,13 @@ def fetch_all_pages(url: str) -> dict:
     return all_games
 
 
+def dict_to_csv(data: dict, name: str):
+    file = open(name + '.csv', 'w', encoding='utf-8')
+    writer = csv.writer(file)
+    for key, value in data.items():
+        writer.writerow([key, value])
+    file.close()
+
+
 if __name__ == '__main__':
-    fetch_all_pages('https://itch.io/games/made-with-flickgame.xml')
+    dict_to_csv(fetch_all_pages('https://itch.io/games/made-with-flickgame.xml'), 'flickgame')

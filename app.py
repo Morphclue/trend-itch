@@ -57,7 +57,6 @@ def fetch(url: str, page: int) -> dict:
 
     for item in xml.iterfind('channel/item'):
         title = item.findtext('title')
-        title += str(page)
         publish_date = item.findtext('pubDate')
         games[title] = publish_date
 

@@ -3,6 +3,50 @@ import csv
 import requests
 from xml.etree.ElementTree import fromstring
 
+engines = [
+    'renpy',
+    'adventure-game-studio',
+    'stencyl',
+    'rpg-maker',
+    'gb-studio',
+    'unreal-engine',
+    'gamemaker',
+    'unity',
+    'pico-8',
+    'godot',
+    'love2d',
+    'tyranobuilder',
+    'bitsy',
+    'libgdx',
+    'twine',
+    'clickteam-fusion',
+    'defold',
+    'appgamekit',
+    'construct',
+    'cryengine',
+    'gdevelop',
+    'puzzlescript',
+    'tic-80',
+    'p5js',
+    'multimedia-fusion',
+    'processing',
+    'flickgame',
+    'dragonruby-gtk',
+    'ctjs',
+    'easyrpg',
+    'rpg-in-a-box',
+    'impact',
+    'melonjs',
+    'pixel-vision-8',
+    'torque-3d',
+    'ogre3d',
+    'mugen',
+    'torque-2d',
+    'amulet',
+    'scummvm',
+    'adlengine',
+]
+
 session = requests.session()
 
 
@@ -13,6 +57,7 @@ def fetch(url: str, page: int) -> dict:
 
     for item in xml.iterfind('channel/item'):
         title = item.findtext('title')
+        title += str(page)
         publish_date = item.findtext('pubDate')
         games[title] = publish_date
 
@@ -33,6 +78,14 @@ def fetch_all_pages(url: str) -> dict:
     return all_games
 
 
+def fetch_all_engines():
+    for index, engine in enumerate(engines):
+        url = 'https://itch.io/games/made-with-' + engine + '.xml'
+        print("Currently fetching: " + str(index) + '/' + str(len(engines)) + ' - ' + engine)
+        dict_to_csv(fetch_all_pages(url), engine)
+    print("Fetching done.")
+
+
 def dict_to_csv(data: dict, name: str):
     file = open(name + '.csv', 'w', encoding='utf-8')
     writer = csv.writer(file)
@@ -42,4 +95,4 @@ def dict_to_csv(data: dict, name: str):
 
 
 if __name__ == '__main__':
-    dict_to_csv(fetch_all_pages('https://itch.io/games/made-with-flickgame.xml'), 'flickgame')
+    fetch_all_engines()

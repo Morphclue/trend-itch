@@ -86,7 +86,7 @@ def fetch_all_engines():
 
 
 def dict_to_csv(data: dict, name: str):
-    file = open(name + '.csv', 'w', encoding='utf-8')
+    file = open(name + '.csv', 'w', newline='', encoding='utf-8')
     writer = csv.writer(file)
     for key, value in data.items():
         writer.writerow([key, value])

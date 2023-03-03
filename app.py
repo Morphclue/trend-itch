@@ -1,4 +1,5 @@
 import csv
+import os
 
 import requests
 from xml.etree.ElementTree import fromstring
@@ -86,7 +87,7 @@ def fetch_all_engines():
 
 
 def dict_to_csv(data: dict, name: str):
-    file = open(f"{name}.csv", 'w', newline='', encoding='utf-8')
+    file = open(os.path.join('output', f"{name}.csv"), 'w', newline='', encoding='utf-8')
     writer = csv.writer(file)
     for key, value in data.items():
         writer.writerow([key, value])
@@ -94,4 +95,5 @@ def dict_to_csv(data: dict, name: str):
 
 
 if __name__ == '__main__':
+    os.makedirs('output', exist_ok=True)
     fetch_all_engines()

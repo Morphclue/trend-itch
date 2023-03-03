@@ -79,14 +79,14 @@ def fetch_all_pages(url: str) -> dict:
 
 def fetch_all_engines():
     for index, engine in enumerate(engines):
-        url = 'https://itch.io/games/made-with-' + engine + '.xml'
-        print("Currently fetching: " + str(index) + '/' + str(len(engines)) + ' - ' + engine)
+        url = f'https://itch.io/games/made-with-{engine}.xml'
+        print(f"Currently fetching: {index}/{len(engines)} - {engine}")
         dict_to_csv(fetch_all_pages(url), engine)
     print("Fetching done.")
 
 
 def dict_to_csv(data: dict, name: str):
-    file = open(name + '.csv', 'w', newline='', encoding='utf-8')
+    file = open(f"{name}.csv", 'w', newline='', encoding='utf-8')
     writer = csv.writer(file)
     for key, value in data.items():
         writer.writerow([key, value])

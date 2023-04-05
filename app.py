@@ -82,16 +82,12 @@ def fetch_all_engines():
     for index, engine in enumerate(engines):
         url = f'https://itch.io/games/made-with-{engine}.xml'
         print(f"Currently fetching: {index}/{len(engines)} - {engine}")
-        dict_to_csv(fetch_all_pages(url), engine)
+        with open(os.path.join('output', f"{engine}.csv"), 'w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            all_games = fetch_all_pages(url)
+            for key, value in all_games.items():
+                writer.writerow([key, value])
     print("Fetching done.")
-
-
-def dict_to_csv(data: dict, name: str):
-    file = open(os.path.join('output', f"{name}.csv"), 'w', newline='', encoding='utf-8')
-    writer = csv.writer(file)
-    for key, value in data.items():
-        writer.writerow([key, value])
-    file.close()
 
 
 if __name__ == '__main__':

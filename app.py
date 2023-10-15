@@ -46,6 +46,8 @@ engines = [
     'amulet',
     'scummvm',
     'adlengine',
+    'superpowers',
+    'orx'
 ]
 
 session = requests.session()
